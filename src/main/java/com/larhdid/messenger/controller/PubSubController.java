@@ -4,6 +4,7 @@ import com.larhdid.messenger.entity.Message;
 import com.larhdid.messenger.service.PubSubService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.messaging.rsocket.annotation.ConnectMapping;
@@ -18,6 +19,9 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class PubSubController {
     private final PubSubService messagingService;
+
+    @Value("${auth0.username-claim}")
+    String usernameClaim;
 
     @ConnectMapping
     void onConnect(RSocketRequester requester) {
